@@ -8,6 +8,7 @@
     <?php
         require_once(TEMPLATES_PATH.'/head.php');
     ?>
+    <link rel="stylesheet" href="css/styles.css">
     <title>Inicio</title>
 </head>
 
@@ -16,6 +17,7 @@
         require_once(TEMPLATES_PATH.'/topbar.php')
     ?>
 
+<div id="contenido">
     <div class="container gentle-flex">
         <div class="card">
             <div class="card-body">
@@ -36,7 +38,7 @@
             </div>
         </div>
     </div>
-
+</div>
 </body>
 
 

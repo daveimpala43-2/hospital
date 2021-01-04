@@ -8,7 +8,9 @@ $('#login').click(function(){
 
         },
         success: function (response) {
-            console.log(response)
+            if(response == 1){
+                window.location.href = 'view/menu.php'
+            }
         }
     });
 });
