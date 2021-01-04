@@ -1,6 +1,5 @@
 <?php
     require_once("config.php");
-    require_once('php/db.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,16 +19,27 @@
     <div class="container gentle-flex">
         <div class="card">
             <div class="card-body">
-                <form>
+                <h4>Ingresar al sistema</h4>
+                <div>
                     <div class="form-group">
                         <label for="num_reg">Numero de registro</label>
                         <input type="text" name="num_reg" id="num_reg" class="form-control">
                     </div>
-                </form>
+                    <div class="form-group">
+                        <label for="pwd">Contraseña</label>
+                        <input type="password" name="pwd" id="pwd" class="form-control">
+                    </div>
+                    <div class="submit">
+                        <button class="btn btn-primary btn-largo" id="login">Ingresar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
 </body>
+
+
+<script src="js/login.js"></script>
 
 </html>
