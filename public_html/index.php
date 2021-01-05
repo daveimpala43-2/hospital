@@ -6,7 +6,11 @@
 
 <head>
     <?php
-        require_once(TEMPLATES_PATH.'/head.php');
+        require_once(TEMPLATES_PATH.'/head.php');   
+        if(!isset($_SESSION['user'])){
+            echo "Hola";
+            header('Location: /view/menu.php');
+        }
     ?>
     <link rel="stylesheet" href="css/styles.css">
     <title>Inicio</title>
@@ -20,7 +24,7 @@
 <div id="contenido">
     <div class="container gentle-flex">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body card-body-login">
                 <h4>Ingresar al sistema</h4>
                 <div>
                     <div class="form-group">

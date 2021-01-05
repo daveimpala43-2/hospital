@@ -8,7 +8,7 @@
     <?php
         require_once(TEMPLATES_PATH.'/head.php');
     ?>
-    <link rel="stylesheet" href="../css/styMenu.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>Inicio</title>
 </head>
 
