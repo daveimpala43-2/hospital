@@ -1,3 +1,4 @@
+
 .gentle-flex {
     display: flex;
     flex-direction: column;
@@ -12,6 +13,8 @@
 
 body{
   background-color: #e0fcff;
+
+  
 }
 
 .card-body-login{
@@ -35,3 +38,27 @@ body{
   display:flex;
   float: right;
 }
+
+.table_services{
+position: fixed;
+margin-left: 0%;
+margin-top: 20%;
+
+
+}
+
+.tds{
+  width: 200px;
+}
+
+.btns_s{
+  width: 45px;
+}
+
+.sizemodalservice.open {
+  width: 100%;
+  max-height: 100%;
+  height: 100%;
+  top: 0 !important;
+}
+
