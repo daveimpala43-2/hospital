@@ -7,7 +7,7 @@
   }
 
 .container{
-  margin-top: 80px;
+  margin-top: 40px;
 }
 
 body{
@@ -34,4 +34,18 @@ body{
 .submit{
   display:flex;
   float: right;
+}
+
+/* CSS Farmaco */
+
+.farmaco tbody tr{
+  background-color: #bbe1fa !important;
+}
+
+.tableFarma{
+  width: 100%;
+  max-width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 3%;
 }

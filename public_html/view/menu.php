@@ -22,7 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <h4>Bienvenido al sistema</h4>
-                <h5><?php echo $_SESSION['nameUser'] ?></h5>
+                <h5><?php if (isset($_SESSION['nameUser'])) echo $_SESSION['nameUser'] ?></h5>
             </div>
         </div>
     </div>

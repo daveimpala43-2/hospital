@@ -23,7 +23,7 @@ else{
         </li>
 
         <li class="nav-item"> 
-          <a class="nav-link active" href="#">Farmacos</a>
+          <a class="nav-link active" href="/view/crud_farma.php">Farmacos</a>
         </li>
 
         <li class="nav-item dropdown">
