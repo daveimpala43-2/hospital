@@ -9,7 +9,7 @@
         require_once(TEMPLATES_PATH.'/head.php');   
         if(isset($_SESSION['user'])){
             echo "Hola";
-            header('Location: /view/menu.php');
+            header('Location: view/menu.php');
         }
     ?>
     <link rel="stylesheet" href="css/styles.css">
