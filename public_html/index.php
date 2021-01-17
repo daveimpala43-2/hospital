@@ -1,15 +1,15 @@
 <?php
-    require_once("config.php");
+    //require_once("config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php
-        require_once(TEMPLATES_PATH.'/head.php');   
+        require_once('templates/head.php');   
         if(isset($_SESSION['user'])){
             echo "Hola";
-            header('Location: view/menu.php');
+            header('Location:view/menu.php');
         }
     ?>
     <link rel="stylesheet" href="css/styles.css">
@@ -18,7 +18,7 @@
 
 <body>
     <?php
-        require_once(TEMPLATES_PATH.'/topbar.php')
+        require_once('templates/topbar.php')
     ?>
 
 <div id="contenido">

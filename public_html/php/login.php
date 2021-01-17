@@ -29,4 +29,4 @@ if( $_POST['pwd'] != "" && $_POST['numReg'] != ""){
 }
 else{
     echo "4";
-}
+} 
