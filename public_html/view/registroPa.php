@@ -9,7 +9,7 @@
         require_once(TEMPLATES_PATH.'/head.php'); 
     ?>
     <link rel="stylesheet" href="../css/styles.css">
-    <title>Inicio</title>
+    <title>Registro Paciente</title>
 </head>
 
 <body>
