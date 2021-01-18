@@ -1,5 +1,6 @@
 <?php
     require_once("../config.php");
+    $id = uniqid();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +27,7 @@
                         <form action="../php/paciente.php" method="POST">
                             <div class="mb-3">
                                 <label for="num_histo" class="form-label">Numero de Registro</label>
-                                <input type="text" class="form-control" name="num_histo" aria-describedby="emailHelp">
+                                <input type="text" class="form-control" name="num_histo" value="<?php echo $id; ?>" aria-describedby="emailHelp"  readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="nom" class="form-label">Nombre</label>
