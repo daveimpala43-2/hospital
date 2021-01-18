@@ -9,7 +9,7 @@ require_once("../config.php");
     require_once(TEMPLATES_PATH . '/head.php');
     ?>
     <link rel="stylesheet" href="../css/styles.css">
-    <title>Ingreso Paciente</title>
+    <title>Consultas</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@ require_once("../config.php");
     <div id="contenido">
         <div class="container gentle-flex">
 
-            <h4>Ingreso de pacientes</h4>
+            <h4>Consultas</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -40,8 +40,15 @@ require_once("../config.php");
 
                     <?php
                     require_once '../php/db.php';
-                    $getPaciente = $conectar->prepare("SELECT * from ingreso;");
+                    $getPaciente = $conectar->prepare("
+                    SELECT i.* ,f.nom as fnom, f.ape1 as fape, s.concept as concepto, p.nom as pnom, p.ape1 as pape FROM ingreso as i
+                    INNER JOIN faculta as f ON i.id_facul = f.n_registro
+                    INNER JOIN servicio as s ON s.id_ser = i.id_ser
+                    INNER JOIN paciente AS p On p.num_histo = i.num_histo
+                    ");
                     $getPaciente->execute();
+                    
+
                     foreach ($getPaciente as $pac) {
                         echo "<tr>";
                         echo '<td>' . $pac['id_ingreso'] . '</td>';
@@ -54,13 +61,14 @@ require_once("../config.php");
                         echo '<td>' . $pac['consumo_gene'] . '</td>';
                         echo '<td>' . $pac['observa'] . '</td>';
                         echo '<td>
-                <button type="button" href="registroPa.php?id=' . $pac['num_histo'] . '" class="btn btn-info btn" data-bs-toggle="modal" data-bs-target="#updateS' . $pac['num_histo'] . '"><i class="far fa-hospital"></i></button>
+                <button type="button" href="consulta.php?id=' . $pac['id_ingreso'] . '" class="btn btn-warning btn" data-bs-toggle="modal" data-bs-target="#updateS' . $pac['id_ingreso'] . '"><i class="fas fa-eye"></i></button>
                 </td>';
                         echo "</tr>";
-                        echo '<div class="modal fade" id=updateS' . $pac['num_histo'] . ' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        echo '
+                        <div class="modal fade" id=updateS' . $pac['id_ingreso'] . ' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                    <form action="../php/Ingreso.php" method="POST">
+                    <form action="../php/consulta.php" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Ingresar paciente</h5>
                             
@@ -68,168 +76,48 @@ require_once("../config.php");
                         </div>
                         <div class="modal-body">
                         <div class="mb-3">
-                        ';
+                        <label for="nom" class="form-label">Id Ingreso</label>
+                        <input type="text" class="form-control" name="id_ing"  value="' . $pac['id_ingreso'] . '" readonly>
+                         </div>
+                         <div class="mb-3">
+                         <label for="nom" class="form-label">Medico</label>
+                         <input type="text" class="form-control"   value="' . $pac['id_facul'] . ' ' . $pac['fnom'] . ' ' . $pac['fape'] . '" readonly>
+                          </div>
+                          <div class="mb-3">
+                          <label for="nom" class="form-label">Paciente</label>
+                          <input type="text" class="form-control"   value="' . $pac['num_histo'] . ' ' . $pac['pnom'] . ' ' . $pac['pape'] . '" readonly>
+                           </div>
+                           <div class="mb-3">
+                           <label for="nom" class="form-label">Consumo</label>
+                           <input type="text" class="form-control" name="consumo">
+                            </div>
+                            <div class="mb-3">
+                            <label for="nom" class="form-label">Observaciones</label>
+                            <input type="text" class="form-control" name="observa">
+                             </div>
+                             <div class="mb-3" hidden>
+                             <input type="text" class="form-control" name="tipo" hidden value="2">
+                            </div>
+                        
 
-                        require_once '../php/db.php';
-                        ///////////////////////////////////
-                        try {
-                            $numH = $conectar->prepare("SELECT num_histo FROM ingreso WHERE num_histo = $pac[num_histo]");
-                            $numH->execute();
-
-
-                            //Generando codigo
-                            $code = uniqid();
-                            foreach ($numH as $numHis) {
-                               // print_r($numHis);
-                             
-                            
-                                if($numHis['num_histo'] != null){
-
-                                    try {
-                                        $alta = $conectar->prepare("SELECT max(fech_alt) as altaT from ingreso WHERE num_histo = $pac[num_histo]");
-                                        $alta->execute();
-                                            //echo"<br>fechaMax";
-            
-                                        foreach ($alta as $alt) {
-            
-                                       // print_r($alt);
-                                            if($alt['altaT'] == null){
-                                                echo '
-                                                <div class="alert alert-danger" role="alert">
-                                                Paciente no dado de alta.
-                                                </div>
-                
-                                                ';
-                                                //Paciente no dado de alta
-                                                $altaTF = 0;
-                                            }else{
-                                                //Paciente dado de alta
-            
-                                                $altaTF = 1;
-                                            }
-                   
-                                        }
-                                    } catch (\Throwable $th) {
-                                        echo "ME DA AMSIEDAD";
-                                    }
-            
-                  
-                                }else{
-                      //Paciente dado de alta
-            
-                      $altaTF = 1;
-
-                                }
-       
-                            }
-                        } catch (\Throwable $th) {
-                            echo "ME DA AMSIEDAD";
-                        }
-
-
-                        ///////////////////////////////////
-                      
-
-                        echo'
-  
-                        <label for="num_reg" class="form-label">Id de Ingreso</label>
-                        <input type="text" class="form-control" name="id_ing" value="'.$code.'" placeholder="Id de ingreso" readonly>
-                    </div>
-                        <div class="mb-3">
-                        <label for="num_reg" class="form-label">Numero de historial</label>
-                        <input type="text" class="form-control" name="num_histo" placeholder="Ingresa el numero de registro"  autocomplete="off" value="' . $pac['num_histo'] . '" readonly>
-                    </div>
-                    ';
-
-                        echo '
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" name="nom"  required autocomplete="off" value="' . $pac['nom'] . '"readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="appat" class="form-label">Apellido paterno</label>
-                        <input type="text" class="form-control" name="ape1"  required autocomplete="off" value="' . $pac['ape1'] . '"readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apmat" class="form-label">Apellido materno</label>
-                        <input type="text" class="form-control" name="ape2"  required autocomplete="off" value="' . $pac['ape2'] . '"readonly>
-                    </div>
-                    <div class="mb-3">
-                                <select name="id_facul" class="form-select" aria-label="Default select example">
-                                <option selected>Seleccione un doctor</option>
-                        ';
-                        require_once '../php/db.php';
-                        try {
-                            $faculta = $conectar->prepare("select * from faculta");
-                            $faculta->execute();
-                            foreach ($faculta as $fac) {
-                                echo '
-                                <option value="' . $fac['n_registro'] . '">' . $fac['n_registro'] . ' Dr. ' . $fac['nom'] . ' ' . $fac['ape1'] . ' ' . $fac['ape2'] . '</option>
-                   
-
-                                ';
-                            }
-                        } catch (\Throwable $th) {
-                            echo "ME DA AMSIEDAD";
-                        }
-                        echo '
-                                </select>
-                                </div>
-                                <div class="mb-3">
-                                <select name="id_ser" class="form-select" aria-label="Default select example">
-                                <option selected>Seleccione un servicio</option>
-                                ';
-                        require_once '../php/db.php';
-                        try {
-                            $servicio = $conectar->prepare("select * from servicio");
-                            $servicio->execute();
-                            foreach ($servicio as $ser) {
-                                echo '
-                                        <option value="' . $ser['id_ser'] . '">' . $ser['id_ser'] . ' ' . $ser['concept'] . '</option>
-                               
-                                        ';
-                            }
-                        } catch (\Throwable $th) {
-                            echo "ME DA AMSIEDAD";
-                        }
-
-                        echo '
-                                </select>
-                                </div>
-                                <div class="mb-3">
-                                <label for="fech_na" class="form-label">Fecha de Ingreso</label>
-                                <input type="date" class="form-control" name="fechaI">
-                                </div>
-                                <div class="mb-3">
-                                <label for="fech_na" class="form-label">Fecha de Atención</label>
-                                <input type="date" class="form-control" name="fechaT">
-                                </div>
-        
-            
-                                    </div>
-                                    <div class="mb-3" hidden>
-                                
-                                    <input type="text" class="form-control" name="tipo" required autocomplete="off" hidden value="1">
-                                </div>
-                               
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary"
+                                        <button type="submit" class="btn btn-success">Actualizar</button>
                                         ';
-                                        if($altaTF == 0){
-                                            echo'disabled';
-                                        }
+                
                                         echo'
-                                        >Ingresar</button>
+                                       
                                         
                                     </div>
                                 </div>
                                 </form>
                             </div>
                         </div>
+                        </div>
+                        
                         
                         ';
-                        $altaTF = 1;
+                        
                     }
                     ?>
 
