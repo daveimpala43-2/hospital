@@ -1,6 +1,8 @@
 <?php
     require_once("../config.php");
     require_once('../php/db.php');
+    $total = 0;
+    setlocale(LC_MONETARY, 'en_US.UTF-8');
     try{
         $sql = "SELECT ing.id_ingreso, far.precio_dosis, far.n_registro, far.nom_clin, far.num_undosis, con.fech_farm, con.folio FROM consumen con, ingreso ing, farmaco far WHERE con.id_farma=far.n_registro && con.id_ingre = ing.id_ingreso";
         $query = $conectar->prepare($sql);
@@ -35,6 +37,9 @@ tr:nth-child(even) {
 tr:hover {
   background: #d1d1d1;
 }
+.page-break{
+    page-break-before: always;
+}
 </style>
 <table>
      <tr>
@@ -48,6 +53,7 @@ tr:hover {
      </tr>
      <?php
         foreach($query as $res){
+            $total = $total + $res[1];
             echo '<tr>';
             echo '<td>'.$res[6].'</td>';
             echo '<td>'.$res[0].'</td>';
@@ -59,5 +65,7 @@ tr:hover {
             echo '</tr>';
         } ?>
 </table>
+<hr>
+<h3> <strong> Total: <?php echo  '$'.$total ?> </strong> </h3>
 </body>
 </html>
