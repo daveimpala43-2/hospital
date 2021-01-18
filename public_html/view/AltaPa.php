@@ -34,6 +34,7 @@ require_once("../config.php");
                         <th>Consumo</th>
                         <th>Observaciones</th>
                         <th>Consulta</th>
+                        <th>Consumo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,9 @@ require_once("../config.php");
                         echo '<td>' . $pac['observa'] . '</td>';
                         echo '<td>
                 <button type="button" href="consulta.php?id=' . $pac['id_ingreso'] . '" class="btn btn-warning btn" data-bs-toggle="modal" data-bs-target="#updateS' . $pac['id_ingreso'] . '"><i class="fas fa-eye"></i></button>
+                </td>';
+                echo '<td>
+                <button type="button" href="consulta.php?id=' . $pac['id_ingreso'] . '" class="btn btn-info btn" data-bs-toggle="modal" data-bs-target="#consumo' . $pac['id_ingreso'] . '"> <i class="fas fa-plus-circle"></i></button>
                 </td>';
                         echo "</tr>";
                         echo '
@@ -103,7 +107,66 @@ require_once("../config.php");
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-success">Actualizar</button>
-                                        ';
+                                        ';                
+                
+                                        echo'
+                                       
+                                        
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                        ';
+                        //Consumo
+                        echo '
+                        <div class="modal fade" id=consumo' . $pac['id_ingreso'] . ' tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <form action="../php/consulta.php" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ingresar paciente</h5>
+                            
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <div class="mb-3">
+                        <label for="nom" class="form-label">Id Ingreso</label>
+                        <input type="text" class="form-control" name="id_ing"  value="' . $pac['id_ingreso'] . '" readonly>
+                         </div>
+                          <div class="mb-3">
+                          <label for="nom" class="form-label">Paciente</label>
+                          <input type="text" class="form-control"   value="' . $pac['num_histo'] . ' ' . $pac['pnom'] . ' ' . $pac['pape'] . '" readonly>
+                           </div>
+                           <div class="mb-3">
+                           <label for="nom" class="form-label">Farmaco</label>
+                           <select class="form-select" name="idFarmaco">';
+                            $sql = "SELECT n_registro, nom_clin FROM farmaco";
+                            $query = $conectar->prepare($sql);
+                            $query->execute();
+                            foreach($query as $resulF){
+                                  echo '
+                             <option value="'.$resulF['n_registro'].'">'.$resulF['nom_clin'].'</option>
+                             ';
+                            }
+                           $query=null;
+                           echo '
+                           </select>
+                            </div>
+                           <div class="mb-3">
+                           <label for="nom" class="form-label">Cantidad que consumio del farmaco</label>
+                           <input type="text" class="form-control" name="consumo">
+                            </div>
+                             <div class="mb-3" hidden>
+                             <input type="text" class="form-control" name="tipo" hidden value="3">
+                            </div>
+                        
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-success">Actualizar</button>
+                                        ';                
                 
                                         echo'
                                        
