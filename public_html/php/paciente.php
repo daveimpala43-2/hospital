@@ -20,7 +20,7 @@ if( $num_histo != "" &&  $name != "" && $appat != "" && $apmat != "" && $sg != "
      $sql->execute();
      
      $sql=null; 
- 
+  
              
      header("Location: ../view/registroPa.php");
     } catch (\Throwable $th) {
@@ -31,8 +31,9 @@ if( $num_histo != "" &&  $name != "" && $appat != "" && $apmat != "" && $sg != "
     if( $num_histo != "" &&  $name != "" && $appat != "" && $apmat != "" && $sg != "" && $dir != "" && $fechaN != "" && $tel != ""){
 
         try {
-           // echo"<br>Esto es del numero 2 + IF<br>";
-         $sql = $conectar->prepare("UPDATE paciente  SET nom ='".$name."', ape1='".$appat."', ape2='".$apmat."', numSeg='".$sg."', direc='".$dir."', fech_na='".$fechaN."', telef='".$tel."' WHERE num_histo=".$num_histo."");
+            echo"<br>Esto es del numero 2 + IF<br>";
+            //exit();
+         $sql = $conectar->prepare("UPDATE paciente  SET nom ='".$name."', ape1='".$appat."', ape2='".$apmat."', numSeg='".$sg."', direc='".$dir."', fech_na='".$fechaN."', telef='".$tel."' WHERE num_histo='".$num_histo."'");
          
          $sql->execute();
          
@@ -51,7 +52,7 @@ if( $num_histo != "" &&  $name != "" && $appat != "" && $apmat != "" && $sg != "
 
         try {
         
-         $sql = $conectar->prepare("DELETE FROM paciente WHERE num_histo=".$num_histo);
+         $sql = $conectar->prepare("DELETE FROM paciente WHERE num_histo='".$num_histo."'");
          
          $sql->execute();
          
