@@ -25,6 +25,9 @@ else{
         <li class="nav-item"> 
           <a class="nav-link active" href="/view/crud_farma.php">Farmacos</a>
         </li>
+        <li class="nav-item"> 
+          <a class="nav-link active" href="/view/consumo.php">Consumo</a>
+        </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
