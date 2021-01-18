@@ -31,9 +31,9 @@ else{
             Paciente
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="registroPa.php">Registro</a></li>
-            <li><a class="dropdown-item" href="#">Ingreso</a></li>
-            <li><a class="dropdown-item" href="#">Dar de Alta</a></li>
+            <li><a class="dropdown-item" href="../view/registroPa.php">Registro</a></li>
+            <li><a class="dropdown-item" href="../view/IngresoPa.php">Ingreso</a></li>
+            <li><a class="dropdown-item" href="../view/AltaPa.php">Dar de Alta</a></li>
           </ul>
         </li>
       </ul>

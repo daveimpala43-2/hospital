@@ -1,7 +1,5 @@
 <?php
 require_once("../config.php");
-$altaTF = 1;
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,33 +24,35 @@ $altaTF = 1;
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Id ingreso</th>
+                        <th>Id Doctor</th>
+                        <th>Id servicio</th>
                         <th>No. Historial</th>
-                        <th>Nombre</th>
-                        <th>Primer Apellido</th>
-                        <th>Segundo Apellido</th>
-                        <th>Seguro Social</th>
-                        <th>Dirección</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Telefono</th>
-                        <th>Ingresar</th>
+                        <th>Fecha Ingreso</th>
+                        <th>Fecha Alta</th>
+                        <th>Fecha Atención</th>
+                        <th>Consumo</th>
+                        <th>Observaciones</th>
+                        <th>Consulta</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <?php
                     require_once '../php/db.php';
-                    $getPaciente = $conectar->prepare("SELECT * from paciente;");
+                    $getPaciente = $conectar->prepare("SELECT * from ingreso;");
                     $getPaciente->execute();
                     foreach ($getPaciente as $pac) {
                         echo "<tr>";
+                        echo '<td>' . $pac['id_ingreso'] . '</td>';
+                        echo '<td>' . $pac['id_facul'] . '</td>';
+                        echo '<td>' . $pac['id_ser'] . '</td>';
                         echo '<td>' . $pac['num_histo'] . '</td>';
-                        echo '<td>' . $pac['nom'] . '</td>';
-                        echo '<td>' . $pac['ape1'] . '</td>';
-                        echo '<td>' . $pac['ape2'] . '</td>';
-                        echo '<td>' . $pac['numSeg'] . '</td>';
-                        echo '<td>' . $pac['direc'] . '</td>';
-                        echo '<td>' . $pac['fech_na'] . '</td>';
-                        echo '<td>' . $pac['telef'] . '</td>';
+                        echo '<td>' . $pac['fech_in'] . '</td>';
+                        echo '<td>' . $pac['fech_alt'] . '</td>';
+                        echo '<td>' . $pac['fech_ate'] . '</td>';
+                        echo '<td>' . $pac['consumo_gene'] . '</td>';
+                        echo '<td>' . $pac['observa'] . '</td>';
                         echo '<td>
                 <button type="button" href="registroPa.php?id=' . $pac['num_histo'] . '" class="btn btn-info btn" data-bs-toggle="modal" data-bs-target="#updateS' . $pac['num_histo'] . '"><i class="far fa-hospital"></i></button>
                 </td>';
